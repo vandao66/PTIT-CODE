@@ -1,18 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
-int main(){
-	int t;cin>>t;
-	while(t--){
-		string s;
-		cin>>s;
-		for(int i=s.length()-1;i>=0;i--){
-			if(s[i]=='1') s[i]='0';
-			else{
-				s[i]='1';
-				break;
-			}
-		}
-		cout<<s<<endl;;
+int n,cnt=0;
+void solve(int len,string s){
+	if(len==n){
+		cnt++;
+		if(cnt%2==0) cout<<cnt<<": "<<s<<endl;
+		return;
 	}
+	if(len>n) return;
+	solve(len+1,s+"0");
+	solve(len+1,s+"1");
+	solve(len+1,s+"2");
+}
+int main(){
+	cin>>n;
+	solve(0,"");
 	return 0;
 }

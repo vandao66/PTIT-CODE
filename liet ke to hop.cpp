@@ -2,27 +2,31 @@
 using namespace std;
 int n,k;
 vector<int> a,cur;
+int cnt=0;
+int snt(int n){
+	for(int i=2;i<=sqrt(n);i++){
+		if(n%i==0) return 0;
+	}
+	return n>1;
+}
 void solve(int len,int now){
 	if(len==k){
-		for(int i=0;i<cur.size();i++){
-			cout<<cur[i]<<" ";
+		cnt++;
+		if(snt(cnt)){
+			cout<<cnt<<": ";
+			for(int x:cur) cout<<x<<" ";
+			cout<<endl;
 		}
-		cout<<endl;
 		return;
 	}
 	for(int i=now;i<a.size();i++){
 		cur.push_back(a[i]);
-		/* sau khi solve(0,0) đến câu lệnh gọi hàm solve này sẽ tạo ra 1 nhánh 
-		 in hết các câu lệnh trong nhánh này sẽ quay lại nhánh ban đầu solve(0,0) */
 		solve(len+1,i+1); 
 		cur.pop_back();
 	}
 }
 int main(){
 	cin>>n>>k;
-	a.resize(n);
-	for(int i=0;i<n;i++) cin>>a[i];
-	sort(a.begin(),a.end());
-	a.erase(unique(a.begin(), a.end()), a.end()); // loại trùng
+	for(int i=1;i<=n;i++) a.push_back(i);
 	solve(0,0);
 }
